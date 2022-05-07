@@ -8,8 +8,9 @@ const flightSchema = new mongoose.Schema({
     startTime : {type: Date, required:true},
     endTime : {type: Date, required:true},
     capacity : {type: Number, required:true},
-    cost: {type:Number, required:true}
-    // seatAvailable : {type: Number, required:true}
+    cost: {type:Number, required:true},
+    // seatAvailable : {type: Number, required:true},
+    createdBy : {type: mongoose.Schema.Types.ObjectId, ref:"user", required:true}
 })
 
 module.exports = mongoose.model("flight", flightSchema);

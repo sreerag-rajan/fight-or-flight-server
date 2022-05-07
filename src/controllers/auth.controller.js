@@ -23,13 +23,30 @@ router.post("/login", async (req,res)=>{
 
         const match = bcrypt.compareSync(req.body.password, user.password);
         if(!match) return res.status(404).send("Incorrect");
+        let payload;
 
-        const payload = {
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email,
-            role: user.role
+        if(user.role==="Admin"){
+            payload = {
+                id: user._id,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+                role: user.role,
+                company: user.company,
+                employeeId:user.employeeId
+            }
         }
+        else{
+            payload = {
+                id: user._id,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+                role: user.role
+            }
+        }
+
+        
         return res.status(200).send({user:payload})
     }
     catch(er){
